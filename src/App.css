@@ -1,0 +1,21 @@
+.cool-button {
+  background-color: #ddd;
+  border-radius: 5px;
+  border: none;
+  border-bottom: 4px solid #222;
+  color: #222;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px;
+  margin: 5px;
+}
+
+.primary {
+  background-color: #1C588C;
+  color: white;
+}
+
+.danger {
+  background-color: #F26363;
+  color: white;
+}
