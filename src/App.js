@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './App.css';
 
 class CoolButton extends React.Component {
@@ -11,17 +12,15 @@ class CoolButton extends React.Component {
   }
 }
 
+// Of course the style can be dynamic too!
 class App extends React.Component {
   render() {
     return (
-      <CoolButton
-        type="primary"
-        onClick={() => {
-          console.log('button clicked');
-        }}
-      >
-        Click me
-      </CoolButton>
+      <div>
+        <CoolButton type="primary" onClick={() => alert('In App, button was clicked!')}>
+          I'm red
+        </CoolButton>
+      </div>
     );
   }
 }

@@ -1,3 +1,37 @@
+// Announcements:
+// - es6-primer -> practice.test using async / await
+// - HW0 -> tests
+// - create react app
+
+// https://www.npmjs.com/
+// https://snyk.io/advisor/npm-package/react
+// npm vs yarn
+// - performance: yarn
+// - security: similar - both check packages with known vulnerabilities
+
+// package-lock.json
+// - https://docs.npmjs.com/cli/v7/configuring-npm/package-lock-json
+// node_modules
+// - ejecting
+
+// package.json
+// - name: url safe, hyphens, lowercase
+// - private: published or not in npm registry
+// - dependencies
+//  - react-dom: allows react to interact with the DOM
+//  - react-scripts: utilities like hot reload, server, etc
+// browserlist:
+// - the build process generates a "bundle"
+
+// robots.txt -> tell scrapers not to index this file
+// manifest.json -> metadata for a progressive web app
+
+// index.html
+// - %PUBLIC_URL% -> the public path of the app
+//
+
+// ---------------------------------------------------------------------------------------
+
 // JSX
 const comp = <div>hello world</div>;
 
@@ -5,6 +39,14 @@ const comp = <div>hello world</div>;
 // JSX -> JS Extension (X) produces React elements
 // rendering and UI logic are tightly coupled (state changes, data preparation for display)
 // separation of concerns: components are grouped functionally instead of by technology
+
+/*
+React.createElement(
+  type,
+  [props],
+  [...children]
+)
+*/
 
 const comp = React.createElement('div', {}, 'hello world, no JSX!');
 
@@ -39,7 +81,7 @@ setInterval(tick, 1000);
 
 // We can embed variables
 const variable = 'E-39';
-return <div>hello {variable}</div>;
+const comp = <div>hello {variable}</div>;
 
 const printAnimal = ({ name, action }) => {
   return `the ${name} ${action}`;
@@ -52,7 +94,7 @@ const animal = {
 
 // Or any JS expression
 // Safe to embed user input, by default its escaped and converted to string
-return <div>hello {printAnimal(animal)}</div>;
+const comp = <div>hello {printAnimal(animal)}</div>;
 
 // When content spans multiple lines, you can include parentheses for readability
 return (
@@ -65,7 +107,7 @@ return (
 
 // We don't need to return a string, but anything that can represent a React node
 // anything that can be rendered
-const printAnimal = (animal) => {
+const printAnimal = animal => {
   if (!animal) {
     return (
       <div>
@@ -83,10 +125,10 @@ const printAnimal = (animal) => {
 };
 
 // passing properties to elements
-return <div id="123">hello</div>;
+const comp = <div id="123">hello</div>;
 // dynamic props
 const id = '123';
-return <div id={id}>hello my ID is {id}</div>;
+const comp = <div id={id}>hello my ID is {id}</div>;
 
 // self-closing tags (not valid per HTML spec) but
 // react allows it
@@ -98,27 +140,6 @@ return (
     <span>I'm a child</span>
   </div>
 );
-
-// React elements are plain objects, and are cheap to create (unlike DOM objects)
-// React DOM takes care of updating the DOM to match the React elements.
-
-// Updates
-// Once you create an element, you can’t change its children or attributes.
-// React DOM compares the element and its children to the previous one, and only
-// applies the DOM updates necessary to bring the DOM to the desired state.
-
-// do this in index.js
-function tick() {
-  const element = (
-    <div>
-      <h1>Hello, world!</h1>
-      <h2>It is {new Date().toLocaleTimeString()}.</h2>
-    </div>
-  );
-  ReactDOM.render(element, document.getElementById('root'));
-}
-
-setInterval(tick, 1000);
 
 // Components
 // So far plain we've used plain HTML elements
@@ -155,16 +176,16 @@ return (
 
 // Event handling
 
-// Traditional HTML/JS -> not very easy to scale
+// Traditional HTML/JS -> not very easy to scale (add in index.html)
 <a href="#" onclick="console.log('The link was clicked.'); return false">
   Click me
 </a>;
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <button
-        onClick={(e) => {
+        onClick={e => {
           console.log('The button was clicked.');
         }}
       >
@@ -175,7 +196,7 @@ class App extends Component {
 }
 
 // Using "this" (why we said don't use)
-class App extends Component {
+class App extends React.Component {
   handler1() {
     console.log('in handler 1', this);
   }
@@ -200,10 +221,10 @@ class App extends Component {
 }
 
 // this
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.handler = this.handler.bind(this);
+    this.handler1 = this.handler1.bind(this);
   }
 
   handler1() {
@@ -230,7 +251,7 @@ class App extends Component {
 }
 
 // children props
-class Book extends Component {
+class Book extends React.Component {
   render() {
     const { title, content } = this.props;
 
@@ -244,21 +265,26 @@ class Book extends Component {
 }
 
 // the call is
-const content = (
-  <div>
-    <p>hello 1</p>
-    <p>hello 2</p>
-  </div>
-);
+class App extends React.Component {
+  render() {
+    const content = (
+      <div>
+        <p>hello 1</p>
+        <p>hello 2</p>
+      </div>
+    );
 
-// the call is
-<div>
-  <Book title="Hello World" content={content} />
-</div>;
+    return (
+      <div>
+        <Book title="Hello World" content={content} />
+      </div>
+    );
+  }
+}
 
 // instead we can use children
 
-class Book extends Component {
+class Book extends React.Component {
   render() {
     const { title, children } = this.props;
 
@@ -271,59 +297,90 @@ class Book extends Component {
   }
 }
 
-<div>
-  <Book title="Hello World">
-    <div>
-      <p>hello 1</p>
-      <p>hello 2</p>
-    </div>
-  </Book>
-</div>;
-
-// Fragments
-const f = (
-  <>
-    <Book title="Hello World">
+class App extends React.Component {
+  render() {
+    return (
       <div>
-        <p>hello 1</p>
-        <p>hello 2</p>
+        <Book title="Hello World">
+          <div>
+            <p>hello child 1</p>
+            <p>hello child 2</p>
+          </div>
+        </Book>
       </div>
-    </Book>
-    <Book title="Hello World">
-      <div>
-        <p>hello 1</p>
-        <p>hello 2</p>
-      </div>
-    </Book>
-  </>
-);
-
-// conditional rendering
-const user = { username: 'test' };
-if (user) {
-  return <div>Welcome {user.username}</div>;
-} else {
-  return <div>Not logged in</div>;
+    );
+  }
 }
 
-return user ? <div>Welcome {user.username}</div> : <div>Not logged in</div>;
+// Fragments
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <Book title="Book 1">
+          <div>
+            <p>hello 1</p>
+            <p>hello 2</p>
+          </div>
+        </Book>
+        <Book title="Book 2">
+          <div>
+            <p>hello 1</p>
+            <p>hello 2</p>
+          </div>
+        </Book>
+      </>
+    );
+  }
+}
 
-return <>{user && <div>Welcome {user.username}</div>}</>;
+// conditional rendering
+class App extends React.Component {
+  render() {
+    const user = null;
+    if (user) {
+      return <div>Welcome {user.username}</div>;
+    } else {
+      return <div>Not logged in</div>;
+    }
+  }
+}
 
-// note: (false/null/undefined) are ignored, other falsy statements like 0 are not
-const variable = false;
+class App extends React.Component {
+  render() {
+    const user = null;
+    return user ? <div>Welcome {user.username}</div> : <div>Not logged in</div>;
+  }
+}
 
-return (
-  <>
-    <div>
-      Variable is <b>{`${variable}`}</b>
-    </div>
-    {variable}
-  </>
-);
+class App extends React.Component {
+  render() {
+    const user = null;
+    return user && <div>Welcome {user.username}</div>;
+  }
+}
+
+class App extends React.Component {
+  render() {
+    const user = null;
+
+    // Falsy
+    return (
+      <>
+        {user && <div>Welcome {user.username}</div>}
+        {!user && <div>Not logged in</div>}
+        {0 && <div>Does 0 render?</div>}
+        {null && <div>Does null render?</div>}
+        {undefined && <div>Does undefined render?</div>}
+        {false && <div>Does false render?</div>}
+        {'' && <div>Does empty string render?</div>}
+      </>
+    );
+  }
+}
 
 // Iterating
-class App extends Component {
+class App extends React.Component {
   render() {
     const list = ['a', 'b', 'c'];
 
@@ -340,20 +397,20 @@ class App extends Component {
 // Styling using classNames
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return <button className="cool-button">Click me</button>;
   }
 }
 
-class CoolButton extends Component {
+class CoolButton extends React.Component {
   render() {
     return <button className={`cool-button ${this.props.type}`}>Click me</button>;
   }
 }
 
 // Of course the style can be dynamic too!
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -365,7 +422,7 @@ class App extends Component {
 }
 
 // Passing down handlers
-class CoolButton extends Component {
+class CoolButton extends React.Component {
   render() {
     return (
       <button className={`cool-button ${this.props.type}`} onClick={this.props.onClick}>
@@ -380,7 +437,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <CoolButton type="primary" onClick={() => alert('button was clicked!')}>
+        <CoolButton type="primary" onClick={() => alert('In App, button was clicked!')}>
           I'm red
         </CoolButton>
       </div>

@@ -1,5 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-
-ReactDOM.render(<App />, document.getElementById('root'));
+const comp = <div>Hello World</div>;
+ReactDOM.render(comp, document.getElementById('root'));
