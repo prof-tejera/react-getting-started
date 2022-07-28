@@ -2,24 +2,32 @@ import React from 'react';
 
 import './App.css';
 
-class CoolButton extends React.Component {
+class Book extends React.Component {
   render() {
+    const { title, children } = this.props;
+
     return (
-      <button className={`cool-button ${this.props.type}`} onClick={this.props.onClick}>
-        Click me
-      </button>
+      <div>
+        <h1>{title}</h1>
+        {children}
+      </div>
     );
   }
 }
 
-// Of course the style can be dynamic too!
 class App extends React.Component {
   render() {
     return (
       <div>
-        <CoolButton type="primary" onClick={() => alert('In App, button was clicked!')}>
-          I'm red
-        </CoolButton>
+        <Book
+          title="Hello World"
+          children={
+            <div>
+              <p>hello child 1</p>
+              <p>hello child 2</p>
+            </div>
+          }
+        />
       </div>
     );
   }
