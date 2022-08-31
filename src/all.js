@@ -126,6 +126,7 @@ const printAnimal = animal => {
 
 // passing properties to elements
 const comp = <div id="123">hello</div>;
+
 // dynamic props
 const id = '123';
 const comp = <div id={id}>hello my ID is {id}</div>;
@@ -335,13 +336,13 @@ class App extends React.Component {
 }
 
 // conditional rendering
-class App extends React.Component {
+class User extends React.Component {
   render() {
     const user = null;
     if (user) {
       return <div>Welcome {user.username}</div>;
     } else {
-      return <div>Not logged in</div>;
+      return <button>Log In</button>;
     }
   }
 }

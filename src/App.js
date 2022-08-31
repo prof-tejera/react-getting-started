@@ -1,28 +1,43 @@
-import React from 'react';
+const PropBook = ({ title, content }) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      {content}
+    </div>
+  );
+};
 
-import './App.css';
+const ChildBook = ({ title, children }) => {
+  // All components receive children - if there are none, for example in a self-closing tag, it will be null
 
-class CoolButton extends React.Component {
-  render() {
-    return (
-      <button className={`cool-button ${this.props.type}`} onClick={this.props.onClick}>
-        Click me
-      </button>
-    );
-  }
-}
+  return (
+    <div>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  );
+};
 
-// Of course the style can be dynamic too!
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <CoolButton type="primary" onClick={() => alert('In App, button was clicked!')}>
-          I'm red
-        </CoolButton>
-      </div>
-    );
-  }
-}
+const App = () => {
+  const content = (
+    <div>
+      <p>hello 1</p>
+      <p>hello 2</p>
+    </div>
+  );
+
+  return (
+    <div>
+      {/* Passing the content in a standard prop */}
+      <PropBook title="Hello World" content={content} />
+
+      {/* Now we nest the content inside the book, which can then be accessed through its children prop instead */}
+      <ChildBook title="Hello World">{content}</ChildBook>
+
+      {/* We can also set the children prop explicitly */}
+      <ChildBook title="Hello World" children={content} />
+    </div>
+  );
+};
 
 export default App;
