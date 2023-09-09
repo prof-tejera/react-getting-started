@@ -1,43 +1,25 @@
-const PropBook = ({ title, content }) => {
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
   return (
-    <div>
-      <h1>{title}</h1>
-      {content}
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
-};
-
-const ChildBook = ({ title, children }) => {
-  // All components receive children - if there are none, for example in a self-closing tag, it will be null
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      {children}
-    </div>
-  );
-};
-
-const App = () => {
-  const content = (
-    <div>
-      <p>hello 1</p>
-      <p>hello 2</p>
-    </div>
-  );
-
-  return (
-    <div>
-      {/* Passing the content in a standard prop */}
-      <PropBook title="Hello World" content={content} />
-
-      {/* Now we nest the content inside the book, which can then be accessed through its children prop instead */}
-      <ChildBook title="Hello World">{content}</ChildBook>
-
-      {/* We can also set the children prop explicitly */}
-      <ChildBook title="Hello World" children={content} />
-    </div>
-  );
-};
+}
 
 export default App;
