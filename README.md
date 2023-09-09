@@ -76,8 +76,8 @@ Like every first interaction with any coding language or framework, we'll start 
 ```jsx
 import ReactDOM from 'react-dom';
 
-const comp = <div>Hello World</div>;
-ReactDOM.render(comp, document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<div>Hello World</div>);
 ```
 
 Now run the start command `npm start` and now your application should be running at http://localhost:3000. Note that if there is something else running on port 3000, the app will ask if you want to run on a different port.
