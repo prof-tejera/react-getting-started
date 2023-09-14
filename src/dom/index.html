@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    var counter = 0;
+
+    const update = () => {
+      const body = document.getElementById('root');
+      
+      body.innerHTML = `
+        <input type="text"></input>
+        <div>
+          <b>Counter: ${counter++}</b>
+        </div>
+      `;
+    }
+
+    setInterval(update, 1000);
+  </script>
+</html>

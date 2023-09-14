@@ -168,6 +168,12 @@ const comp2 = <div>{printAnimal(animal)}</div>; // will render '<b>Inexistent an
 
 Components are at the heart of React. It's the equivalent of the arrival of objects to object-oriented programming, giving us the ability to encapsulate business logic, structure, styling in a single reusable unit.
 
+## Are React Components Web Components?
+
+In short, no. In long, no. When HTML started we had a very limited set of tags (divs, spans, etc). As the web grew, we started needing more complex elements like tabls, inputs, video. Developers started to combine all these tags to create even more complex custom elements using JS and CSS. However, in the browser, these rendered as standard elements, which could potentially class with the overall document. For example, a selector from the main document could target a part of the custom component and modify its behavior. Web Components provides an API to avoid this, by encapsulating the component entirely and preventing conflics with the parent document. Previously you could find this type of behavior in iframes. This also provides reusability as the definition of the component is done once but they can be reused as many times as needed in the document.
+
+React Components are NOT web components. In the browser, React components end up rendering with the tags used in its definition (divs, spans, even web components). This means we do not have any type of encapsulation of our React components. This is, nothing prevents a script from using a selector that targets a part of our React component and modifying it. There are ways to reduce the probability of this problem but not to totally prevent it. However, React components CAN be reused and this is highly encouraged like objects are in OOP.
+
 In older versions of React, we would create our own components using a class that extends from `React.Component`:
 
 ```jsx
