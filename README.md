@@ -45,7 +45,7 @@ my-app
 
 - **name**: the name of our app - be careful with naming conventions, no uppercase letters and should be a URL-safe string
 - **version**
-- **private**: this will be **true** for any modules that are meant to be published as **npm** packages
+- **private**: if set to **true**, **npm** will refuse to publish this app
 - **dependencies**: a list of all required modules to run this app
   - `@testing*` packages used to run tests
   - `react`
